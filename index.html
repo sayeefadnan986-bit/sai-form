@@ -1,0 +1,894 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d1b">
+  <meta name="description" content="আপনার মতামত, পরামর্শ ও অভিজ্ঞতা আমাদের সঙ্গে শেয়ার করুন।      By SAYEEF ADNAN">
+  <title>Feedback Studio — আপনার মতামত জানান</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: dark;
+      --bg: #080d1b;
+      --panel: rgba(19, 28, 51, .78);
+      --line: rgba(255, 255, 255, .11);
+      --muted: #a3aec8;
+      --text: #f5f7ff;
+      --primary: #8b7cff;
+      --cyan: #55d9e8;
+      --success: #55e5a2;
+      --danger: #ff8297;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 10% 5%, rgba(106, 79, 255, .19), transparent 38%),
+        radial-gradient(ellipse at 95% 75%, rgba(27, 188, 211, .12), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Hind Siliguri", "Inter", sans-serif;
+      line-height: 1.65;
+    }
+
+    button, input, textarea, select { font: inherit; }
+
+    button, select { cursor: pointer; }
+
+    button:focus-visible, input:focus-visible,
+    textarea:focus-visible, select:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font: 800 18px "Inter", sans-serif;
+      letter-spacing: -.5px;
+    }
+
+    .brand-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #8b7cff, #4fd9e8);
+      color: #080d1b;
+      font-size: 22px;
+    }
+
+    .top-tag {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .hero {
+      padding: 62px 0 38px;
+      text-align: center;
+      animation: rise .65s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 13px;
+      border: 1px solid rgba(139,124,255,.3);
+      border-radius: 99px;
+      color: #c4bcff;
+      background: rgba(139,124,255,.09);
+      font-size: 13px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 12px var(--success);
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 19px auto 12px;
+      font-size: clamp(34px, 6vw, 57px);
+      line-height: 1.2;
+      letter-spacing: -1.2px;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(100deg, #b4a7ff, #62e1ec);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero p {
+      max-width: 570px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .trust-row {
+      margin-top: 23px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      color: #b9c5dc;
+      font-size: 12px;
+    }
+
+    .trust-row span { display: flex; gap: 6px; align-items: center; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 23px;
+      align-items: start;
+      padding-bottom: 55px;
+    }
+
+    .card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 23px;
+      background: var(--panel);
+      box-shadow: 0 24px 80px rgba(0,0,0,.2);
+      backdrop-filter: blur(20px);
+    }
+
+    .form-card { padding: clamp(20px, 4vw, 36px); }
+
+    .form-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    h2 { margin: 0; font-size: 23px; line-height: 1.4; }
+    h3 { margin: 0; font-size: 17px; }
+
+    .subtext { color: var(--muted); font-size: 13px; margin: 5px 0 0; }
+
+    .step-label {
+      white-space: nowrap;
+      font: 600 11px "Inter", sans-serif;
+      color: #c5bcff;
+      background: rgba(139,124,255,.13);
+      padding: 7px 10px;
+      border-radius: 9px;
+    }
+
+    .progress-track {
+      height: 4px;
+      background: rgba(255,255,255,.08);
+      border-radius: 10px;
+      margin-bottom: 27px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      border-radius: inherit;
+      transition: width .25s ease;
+    }
+
+    .field { margin-bottom: 21px; min-width: 0; }
+
+    .field label, .group-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .required { color: #a99cff; }
+
+    .field-hint {
+      margin: -3px 0 9px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .input-wrap { position: relative; }
+
+    .input-icon {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      pointer-events: none;
+      opacity: .7;
+      font-size: 16px;
+    }
+
+    .control {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      color: var(--text);
+      background: rgba(5,10,24,.52);
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 12px;
+      padding: 13px 14px;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    .control.with-icon { padding-left: 43px; }
+
+    .control::placeholder { color: #78849f; }
+
+    .control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(139,124,255,.12);
+      background: rgba(5,10,24,.8);
+      outline: none;
+    }
+
+    select.control {
+      appearance: auto;
+      color-scheme: dark;
+    }
+
+    select.control option { background: #111a30; color: white; }
+
+    textarea.control { min-height: 132px; resize: vertical; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+      cursor: pointer;
+      transition: .2s;
+      font-size: 13px;
+    }
+
+    .choice:hover { border-color: rgba(139,124,255,.6); }
+
+    .choice:has(input:checked) {
+      border-color: var(--primary);
+      background: rgba(139,124,255,.12);
+      color: #ded9ff;
+    }
+
+    .choice input {
+      accent-color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    .rating-box {
+      padding: 17px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 8px 0;
+    }
+
+    .star {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #526079;
+      font-size: clamp(29px, 5vw, 38px);
+      transition: transform .15s, color .15s;
+    }
+
+    .star:hover { transform: scale(1.14); }
+    .star.active { color: #ffca68; }
+    .rating-caption { color: var(--muted); font-size: 12px; min-height: 21px; }
+
+    .field-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .counter.near-limit { color: #ffca68; }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 21px 0;
+    }
+
+    .consent input {
+      accent-color: var(--primary);
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+
+    .submit-btn {
+      width: 100%;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #080d1b;
+      font-weight: 800;
+      border: 0;
+      border-radius: 13px;
+      background: linear-gradient(105deg, #b4a4ff, #6fe1e8);
+      box-shadow: 0 8px 28px rgba(103,132,255,.17);
+      transition: transform .2s, filter .2s;
+    }
+
+    .submit-btn:hover { transform: translateY(-2px); filter: brightness(1.07); }
+    .submit-btn:disabled { opacity: .7; cursor: wait; transform: none; }
+
+    .spinner {
+      display: none;
+      width: 17px;
+      height: 17px;
+      border: 2px solid rgba(0,0,0,.25);
+      border-top-color: #080d1b;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+
+    .submit-btn.loading .spinner { display: inline-block; }
+    .submit-btn.loading .send-icon { display: none; }
+
+    .privacy-note {
+      margin: 12px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .side { display: grid; gap: 16px; }
+
+    .side-card { padding: 23px; }
+
+    .side-card p { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+
+    .benefit {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      align-items: flex-start;
+    }
+
+    .benefit-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 39px;
+      height: 39px;
+      border-radius: 12px;
+      background: rgba(139,124,255,.13);
+      font-size: 17px;
+    }
+
+    .benefit strong { display: block; font-size: 13px; }
+    .benefit p { margin-top: 3px; font-size: 12px; }
+
+    .quote-card {
+      background: linear-gradient(145deg, rgba(139,124,255,.14), rgba(85,217,232,.06));
+    }
+
+    .quote-mark { font: 800 44px "Inter", sans-serif; color: #b4a4ff; line-height: 1; }
+    .quote-card p { color: #d4daeb; font-size: 14px; }
+
+    .status {
+      display: none;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .status.show { display: block; animation: rise .25s ease both; }
+    .status.success { border-color: rgba(85,229,162,.35); background: rgba(85,229,162,.08); color: #9cf4c9; }
+    .status.error { border-color: rgba(255,130,151,.35); background: rgba(255,130,151,.08); color: #ffb3c0; }
+
+    .footer {
+      padding: 22px 0 30px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      text-align: center;
+      color: #8995af;
+      font-size: 12px;
+    }
+
+    .footer a { color: #c4bcff; text-decoration: none; }
+
+    /* Honeypot: hidden from people, available to basic spam bots. */
+    .hp {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 790px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { grid-template-columns: 1fr 1fr; }
+      .hero { padding-top: 45px; }
+    }
+
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 22px, 1080px); }
+      .topbar { min-height: 65px; }
+      .brand { font-size: 15px; }
+      .brand-icon { width: 34px; height: 34px; }
+      .top-tag { font-size: 10px; padding: 5px 8px; }
+      .hero { padding: 37px 0 29px; }
+      .hero p { font-size: 14px; }
+      .trust-row { gap: 8px 13px; }
+      .layout { gap: 15px; }
+      .form-card { padding: 20px 16px; border-radius: 18px; }
+      .two-col { grid-template-columns: 1fr; gap: 0; }
+      .side { grid-template-columns: 1fr; }
+      .choices { gap: 8px; }
+      .choice { padding: 10px 8px; font-size: 12px; }
+      .form-heading { gap: 7px; }
+      h2 { font-size: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#" aria-label="Feedback Studio home"
+       style="text-decoration:none;color:inherit">
+      <span class="brand-icon" aria-hidden="true">✳</span>
+      <span>Feedback<span class="gradient-text">Studio</span></span>
+    </a>
+    <span class="top-tag">✦ আপনার মতামত গুরুত্বপূর্ণ</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> আপনার কণ্ঠস্বর, আমাদের অনুপ্রেরণা</span>
+      <h1>আপনার মতামত দিয়ে<br><span class="gradient-text">আরও ভালো হতে সাহায্য করুন</span></h1>
+      <p>
+        আপনার অভিজ্ঞতা, পরামর্শ কিংবা কোনো সমস্যার কথা আমাদের জানান।
+        প্রতিটি মতামত আমাদের আরও উন্নত হতে সাহায্য করে।
+      </p>
+      <div class="trust-row">
+        <span>✓ সহজ ও দ্রুত</span>
+        <span>✦ আপনার মতামত মূল্যবান</span>
+        <span>⌁ মোবাইল-বান্ধব</span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="card form-card">
+        <div class="form-heading">
+          <div>
+            <h2>ফিডব্যাক ফর্ম</h2>
+            <p class="subtext">আপনার অভিজ্ঞতা শেয়ার করতে নিচের তথ্যগুলো দিন।</p>
+          </div>
+          <span class="step-label">YOUR VOICE ✦</span>
+        </div>
+
+        <div class="progress-track" role="progressbar"
+             aria-label="ফর্ম পূরণের অগ্রগতি" aria-valuemin="0"
+             aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <form id="feedbackForm"
+              action="https://formsubmit.co/ajax/iamadtul@gmail.com"
+              method="POST">
+
+          <!-- FormSubmit settings -->
+          <input type="hidden" name="_subject" value="নতুন Website Feedback এসেছে!">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="true">
+
+          <!-- Honeypot: do not fill this field -->
+          <div class="hp" aria-hidden="true">
+            <label for="website">এই ঘরটি খালি রাখুন</label>
+            <input id="website" type="text" name="_honey"
+                   tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <label for="name">আপনার নাম <span class="required">*</span></label>
+              <div class="input-wrap">
+                <span class="input-icon" aria-hidden="true">♙</span>
+                <input class="control with-icon" id="name" name="নাম"
+                       type="text" placeholder="আপনার নাম লিখুন"
+                       autocomplete="name" minlength="2" maxlength="80" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">ইমেইল ঠিকানা <span class="required">*</span></label>
+              <div class="input-wrap">
+                <span class="input-icon" aria-hidden="true">✉</span>
+                <input class="control with-icon" id="email" name="email"
+                       type="email" placeholder="you@example.com"
+                       autocomplete="email" maxlength="254" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="category">ফিডব্যাকের ধরন <span class="required">*</span></label>
+            <select class="control" id="category" name="ফিডব্যাকের ধরন" required>
+              <option value="" selected disabled>একটি ক্যাটাগরি নির্বাচন করুন</option>
+              <option value="সাধারণ মতামত">💬 সাধারণ মতামত</option>
+              <option value="সমস্যা বা বাগ">🐞 সমস্যা বা বাগ রিপোর্ট</option>
+              <option value="নতুন ফিচারের প্রস্তাব">💡 নতুন ফিচারের প্রস্তাব</option>
+              <option value="ডিজাইন ও ব্যবহারযোগ্যতা">🎨 ডিজাইন ও ব্যবহারযোগ্যতা</option>
+              <option value="প্রশংসা">💜 প্রশংসা</option>
+              <option value="অন্যান্য">✦ অন্যান্য</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <span class="group-label" id="ratingLabel">
+              আপনার অভিজ্ঞতা কেমন ছিল? <span class="required">*</span>
+            </span>
+            <div class="rating-box">
+              <div class="stars" role="group" aria-labelledby="ratingLabel"
+                   aria-describedby="ratingCaption">
+                <button class="star" type="button" data-rating="1"
+                        aria-label="১ স্টার" aria-pressed="false">★</button>
+                <button class="star" type="button" data-rating="2"
+                        aria-label="২ স্টার" aria-pressed="false">★</button>
+                <button class="star" type="button" data-rating="3"
+                        aria-label="৩ স্টার" aria-pressed="false">★</button>
+                <button class="star" type="button" data-rating="4"
+                        aria-label="৪ স্টার" aria-pressed="false">★</button>
+                <button class="star" type="button" data-rating="5"
+                        aria-label="৫ স্টার" aria-pressed="false">★</button>
+              </div>
+              <div class="rating-caption" id="ratingCaption" aria-live="polite">
+                রেটিং দিতে একটি স্টারে ক্লিক করুন
+              </div>
+            </div>
+            <input type="hidden" id="rating" name="রেটিং" value="">
+          </div>
+
+          <div class="field">
+            <label for="subject">বিষয় <span class="required">*</span></label>
+            <input class="control" id="subject" name="বিষয়" type="text"
+                   placeholder="আপনার ফিডব্যাকের সংক্ষিপ্ত শিরোনাম"
+                   minlength="3" maxlength="120" required>
+          </div>
+
+          <div class="field">
+            <label for="message">আপনার বিস্তারিত মতামত <span class="required">*</span></label>
+            <p class="field-hint">যতটা সম্ভব বিস্তারিত লিখুন, যাতে আমরা বুঝতে পারি।</p>
+            <textarea class="control" id="message" name="বিস্তারিত মতামত"
+                      placeholder="আপনার অভিজ্ঞতা, সমস্যা বা পরামর্শ এখানে লিখুন..."
+                      minlength="10" maxlength="2000"
+                      aria-describedby="messageCounter" required></textarea>
+            <div class="field-footer">
+              <span>কমপক্ষে ১০টি অক্ষর</span>
+              <span id="messageCounter" class="counter">০ / ২০০০</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="recommend">আপনি কি অন্যদের এই ওয়েবসাইটটি সুপারিশ করবেন?</label>
+            <select class="control" id="recommend" name="সুপারিশ করবেন">
+              <option value="নিশ্চিত নই">নিশ্চিত নই</option>
+              <option value="হ্যাঁ">হ্যাঁ, অবশ্যই!</option>
+              <option value="সম্ভবত">সম্ভবত</option>
+              <option value="না">না</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="improvement">আর কী উন্নতি করা যেতে পারে? (ঐচ্ছিক)</label>
+            <textarea class="control" id="improvement" name="উন্নতির পরামর্শ"
+                      placeholder="আপনার কোনো অতিরিক্ত পরামর্শ থাকলে লিখুন..."
+                      maxlength="1000" rows="3"></textarea>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" name="তথ্য পাঠানোর সম্মতি"
+                   value="সম্মতি দিয়েছেন" required>
+            <span>আমি নিশ্চিত করছি যে প্রদত্ত তথ্য আমার জানা মতে সঠিক এবং ফিডব্যাকটি পাঠাতে সম্মত। <span class="required">*</span></span>
+          </label>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="send-icon" aria-hidden="true">➤</span>
+            <span id="submitText">ফিডব্যাক পাঠান</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+
+          <p class="privacy-note">
+            🔒 আপনার ফর্মটি ইমেইলের মাধ্যমে পাঠানো হবে।
+            সংবেদনশীল বা গোপন তথ্য লিখবেন না।
+          </p>
+        </form>
+      </section>
+
+      <aside class="side">
+        <section class="card side-card">
+          <h3>কেন আপনার মতামত জরুরি?</h3>
+          <p>আপনার ছোট্ট একটি পরামর্শও আমাদের উন্নতির বড় অনুপ্রেরণা হতে পারে।</p>
+
+          <div class="benefit">
+            <div class="benefit-icon" aria-hidden="true">🎯</div>
+            <div>
+              <strong>আরও ভালো অভিজ্ঞতা</strong>
+              <p>কোন বিষয়গুলো উন্নত করা দরকার তা বুঝতে সাহায্য করে।</p>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon" aria-hidden="true">💡</div>
+            <div>
+              <strong>নতুন আইডিয়ার সুযোগ</strong>
+              <p>আপনার পরামর্শ থেকে নতুন ফিচারের ধারণা আসতে পারে।</p>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon" aria-hidden="true">🤝</div>
+            <div>
+              <strong>আপনার কথা আমরা শুনি</strong>
+              <p>আপনার অভিজ্ঞতা বুঝে সঠিক উন্নতির দিকে এগোতে পারি।</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card side-card quote-card">
+          <div class="quote-mark" aria-hidden="true">“</div>
+          <h3>প্রতিটি মতামতের মূল্য আছে</h3>
+          <p>
+            ভালো অভিজ্ঞতা, গঠনমূলক সমালোচনা কিংবা নতুন কোনো ধারণা—
+            সবকিছুই আমাদের এগিয়ে যেতে সাহায্য করে।
+          </p>
+          <span class="gradient-text">ধন্যবাদ আপনার সময় দেওয়ার জন্য ♥</span>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <p>Made with care ✦ Feedback Studio</p>
+      <p>আপনার মতামতই আমাদের উন্নতির অনুপ্রেরণা।</p>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const form = document.getElementById("feedbackForm");
+    const statusBox = document.getElementById("status");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitText = document.getElementById("submitText");
+    const message = document.getElementById("message");
+    const counter = document.getElementById("messageCounter");
+    const ratingInput = document.getElementById("rating");
+    const ratingCaption = document.getElementById("ratingCaption");
+    const progressFill = document.getElementById("progressFill");
+    const progressTrack = document.getElementById("progressTrack");
+
+    const ratingLabels = {
+      1: "খুব অসন্তুষ্ট",
+      2: "আরও উন্নতি দরকার",
+      3: "মোটামুটি ভালো",
+      4: "খুব ভালো অভিজ্ঞতা",
+      5: "অসাধারণ অভিজ্ঞতা! ✨"
+    };
+
+    function showStatus(type, text) {
+      statusBox.className = "status show " + type;
+      statusBox.textContent = text;
+      statusBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function setLoading(loading) {
+      submitBtn.disabled = loading;
+      submitBtn.classList.toggle("loading", loading);
+      submitText.textContent = loading ? "পাঠানো হচ্ছে..." : "ফিডব্যাক পাঠান";
+      form.setAttribute("aria-busy", String(loading));
+    }
+
+    // Interactive star rating
+    document.querySelectorAll(".star").forEach((star) => {
+      star.addEventListener("click", () => {
+        const selected = Number(star.dataset.rating);
+        ratingInput.value = String(selected);
+        ratingCaption.textContent = ratingLabels[selected];
+
+        document.querySelectorAll(".star").forEach((item) => {
+          const active = Number(item.dataset.rating) <= selected;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed",
+            String(Number(item.dataset.rating) === selected));
+        });
+
+        updateProgress();
+      });
+    });
+
+    // Character counter
+    const bnDigits = (value) => String(value).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+
+    message.addEventListener("input", () => {
+      counter.textContent = `${bnDigits(message.value.length)} / ২০০০`;
+      counter.classList.toggle("near-limit", message.value.length > 1800);
+      updateProgress();
+    });
+
+    // Progress measures required fields completed, not time spent.
+    function updateProgress() {
+      const requiredFields = [
+        document.getElementById("name"),
+        document.getElementById("email"),
+        document.getElementById("category"),
+        document.getElementById("subject"),
+        message
+      ];
+
+      let complete = requiredFields.filter(field => field.value.trim() !== "").length;
+      if (ratingInput.value) complete++;
+      if (form.querySelector('[name="তথ্য পাঠানোর সম্মতি"]').checked) complete++;
+
+      const percent = Math.round(complete / 7 * 100);
+      progressFill.style.width = percent + "%";
+      progressTrack.setAttribute("aria-valuenow", String(percent));
+    }
+
+    form.querySelectorAll("input, select, textarea").forEach((field) => {
+      field.addEventListener("input", updateProgress);
+      field.addEventListener("change", updateProgress);
+    });
+
+    // Email submission via FormSubmit AJAX endpoint.
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      statusBox.className = "status";
+      statusBox.textContent = "";
+
+      if (!form.reportValidity()) return;
+
+      if (!ratingInput.value) {
+        showStatus("error", "অনুগ্রহ করে আপনার অভিজ্ঞতার জন্য ১–৫ স্টারের একটি রেটিং দিন।");
+        document.querySelector(".stars").scrollIntoView({
+          behavior: "smooth", block: "center"
+        });
+        return;
+      }
+
+      // Extra client-side spam check. Server-side spam protection is still needed.
+      const honeypot = form.querySelector('[name="_honey"]');
+      if (honeypot.value.trim()) return;
+
+      setLoading(true);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "Accept": "application/json" }
+        });
+
+        let result;
+        try {
+          result = await response.json();
+        } catch {
+          throw new Error("সার্ভিস থেকে সঠিক উত্তর পাওয়া যায়নি।");
+        }
+
+        if (!response.ok || result.success === false || result.success === "false") {
+          throw new Error(result.message || "ফর্মটি গ্রহণ করা যায়নি।");
+        }
+
+        showStatus(
+          "success",
+          "✓ আপনার ফিডব্যাক পাঠানোর অনুরোধ সফল হয়েছে! ধন্যবাদ। প্রথমবার ব্যবহার করলে ইমেইল যাচাইকরণ প্রয়োজন হতে পারে।"
+        );
+
+        form.reset();
+        ratingInput.value = "";
+        ratingCaption.textContent = "রেটিং দিতে একটি স্টারে ক্লিক করুন";
+        document.querySelectorAll(".star").forEach(star => {
+          star.classList.remove("active");
+          star.setAttribute("aria-pressed", "false");
+        });
+        counter.textContent = "০ / ২০০০";
+        counter.classList.remove("near-limit");
+        updateProgress();
+
+      } catch (error) {
+        showStatus(
+          "error",
+          "ফিডব্যাক পাঠানো যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন। প্রয়োজনে FormSubmit-এ আপনার ইমেইল যাচাই হয়েছে কি না দেখুন।"
+        );
+        console.error("Feedback submission error:", error);
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
